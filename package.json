@@ -1,0 +1,20 @@
+{
+  "name": "hw-blog",
+  "version": "0.0.1",
+  "description": "simple blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blog",
+    "nodejs",
+    "pug"
+  ],
+  "author": "TubbyStubby",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3"
+  }
+}
