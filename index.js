@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 
@@ -15,11 +16,16 @@ mongoose.connect(
     }
 );
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next) => {
-    res.send('Hi');
+    res.render('index', {
+        heading: 'Home',
+    })
 });
 
 app.use((req, res, next) => {
