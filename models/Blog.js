@@ -11,7 +11,7 @@ const blog_schema = mongoose.Schema({
     },
     time_posted: Date,
     comments: [{
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
     }]
 });
