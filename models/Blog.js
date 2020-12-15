@@ -5,7 +5,7 @@ const blog_schema = mongoose.Schema({
     title: String,
     body: String,
     posted_by: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
