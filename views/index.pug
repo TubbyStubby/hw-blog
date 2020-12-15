@@ -2,3 +2,6 @@ extends header-footer-layout
 
 block content 
   h1 #{heading}
+  ul
+    each blog, i in blogs
+      li= blog.title
