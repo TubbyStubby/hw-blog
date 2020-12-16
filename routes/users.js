@@ -23,7 +23,7 @@ router.get('/signup', (req, res, next) => {
   });
 });
 
-// TODO: set cookie, redirect to home, add error toast
+// TODO: add error toast
 router.post('/login', (req, res, next) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if(user) {
@@ -40,7 +40,8 @@ router.post('/login', (req, res, next) => {
               expiresIn: '1h',
             },
           );
-          return res.status(200).json({auth: true, token: token});
+          res.cookie("authToken", token);
+          return res.redirect('/');
         }
 
         return res.status(401).json({auth: false, error: err});
@@ -49,7 +50,7 @@ router.post('/login', (req, res, next) => {
   });
 });
 
-// TODO: add data cookie, add error toast
+// TODO: add error toast
 router.post('/signup', (req, res, next) => {
   User.find({username: req.body.username}, (err, users) => {
     if(users.length > 0) return res.status(409).json({error: 'User already exists'});

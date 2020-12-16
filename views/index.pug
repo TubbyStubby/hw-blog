@@ -2,6 +2,17 @@ extends header-footer-layout
 
 block content 
   h1 #{heading}
+  if loggedIn
+    p Hello, #{username}
+    a(href='/blog/new') New Post
+  else
+    a(href='/users/signup') Signup
+    br
+    a(href='/users/login') login
+  hr
+
+  h2 Posts
   ul
     each blog, i in blogs
-      li= blog.title
+      li
+        a(href='/blogs/' + blog._id)= blog.title
