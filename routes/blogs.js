@@ -8,7 +8,21 @@ const Blog = require('../models/Blog');
 const Comment = require('../models/Comment');
 
 router.get('/one/:blogId?', (req, res, next) => {
+  let isLoggedIn = false;
+  let username = null;
+  let userid = null;
+
+  if(req.userData) {
+    isLoggedIn = true;
+    username = req.userData.username;
+    userid = req.userData.id;
+  }
+
   Blog.findOne({_id: req.params.blogId}, (err, blog) => {
+    let canDelete = false;
+
+    if(isLoggedIn && blog.posted_by == userid) canDelete = true; 
+
     if(err) {
       console.log(err);
       return res.status(501).json({error: err});
@@ -16,6 +30,7 @@ router.get('/one/:blogId?', (req, res, next) => {
 
     res.render('blog-template', {
       blog: blog,
+      canDelete: canDelete,
     });
   });
 });
@@ -64,4 +79,31 @@ router.post('/new', (req, res, next) => {
   }
   else return res.status(500).json('Not logged in');
 });
+
+router.post('/delete', (req, res, next) => {
+  let isLoggedIn = false;
+  let username = null;
+  let userid = null;
+
+  if(req.userData) {
+    isLoggedIn = true;
+    username = req.userData.username;
+    userid = req.userData.id;
+  }
+  else return res.status(500).json({error: 'Not logged in.'});
+
+  let blogId = req.body.blogId;
+
+  Blog.findOne({_id: blogId}, (err, blog) => {
+    if(err) return res.status(500).json({error: 'Unable to find blog'});
+    if(userid != blog.posted_by) return res.status(500).json({error: 'Dont have permision to delete this post.'});
+    else {
+      blog.delete((err) => {
+        if(err) res.status(500).json({error: err});
+        res.redirect('/');
+      });
+    }
+  });
+});
+
 module.exports = router;

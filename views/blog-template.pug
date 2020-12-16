@@ -1,6 +1,10 @@
 extends header-footer-layout
 
 block content
+  if canDelete
+    form(action="/blogs/delete", method="post")
+      input(type="hidden", value=blog._id, name="blogId")
+      input(type="submit", value="Delete")
   h2 #{blog.title}
   i #{blog.posted_by}
   h5
