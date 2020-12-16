@@ -32,14 +32,14 @@ app.get('/', (req, res, next) => {
             console.log(err);
         } else {
             res.render('index', {
-                heading: 'Home',
+                heading: 'HW Blog',
                 blogs: blogs,
             });
         }
     });
 });
 
-app.use('/user', userRoute);
+app.use('/users', userRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
