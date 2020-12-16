@@ -1,0 +1,12 @@
+extends header-footer-layout
+
+block content
+  h2 #{blog.title}
+  i #{blog.posted_by}
+  h5
+    i #{blog.time_posted}
+  br
+  p= blog.body
+  br
+  h3 Comments
+  p= blog.comments

@@ -29,11 +29,13 @@ app.use(authenticate);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-let homeRoute = require('./routes/home');
-let userRoute = require('./routes/users');
+const homeRoute = require('./routes/home');
+const userRoute = require('./routes/users');
+const blogRoute = require('./routes/blogs');
 
 app.use('/', homeRoute);
 app.use('/users', userRoute);
+app.use('/blogs', blogRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
