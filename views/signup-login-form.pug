@@ -1,0 +1,14 @@
+extends header-footer-layout
+
+block content
+  h1 #{heading}
+  br
+  hr
+  form(method='post', action=formAction)
+    label Username:
+    input(name="username", type="text")
+    br
+    label Password:
+    input(name="password", type="password")
+    br
+    input(type="submit", value=value)
