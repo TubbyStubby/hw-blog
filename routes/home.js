@@ -16,9 +16,8 @@ router.get('/', (req, res, next) => {
   }
 
   Blog.find({}, null, { sort: {time_posted: -1} }, (err, blogs) => {
-      if(err) {
-          console.log(err);
-      } else {
+      if(err) res.status(500).json({ error: err });
+      else {
         res.render('index', {
             heading: 'HW Blog',
             blogs: blogs,

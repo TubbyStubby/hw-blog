@@ -23,10 +23,7 @@ router.get('/one/:blogId?', (req, res, next) => {
 
     if(isLoggedIn && blog.posted_by == userid) canDelete = true; 
 
-    if(err) {
-      console.log(err);
-      return res.status(501).json({error: err});
-    }
+    if(err) return res.status(501).json({error: err});
 
     res.render('blog-template', {
       blog: blog,
@@ -147,8 +144,6 @@ router.post('/update', (req, res, next) => {
     title: req.body.title,
     body: req.body.body,
   }
-
-  console.log(thingsToUpdate);
 
   Blog.findOne({_id: blogId}, (err, blog) => {
     if(err) return res.status(500).json({error: err});
