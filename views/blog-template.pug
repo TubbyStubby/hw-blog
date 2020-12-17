@@ -5,7 +5,11 @@ block content
     form(action="/blogs/delete", method="post")
       input(type="hidden", value=blog._id, name="blogId")
       input(type="submit", value="Delete")
+<<<<<<< HEAD
     form(action='/blogs/update' + blog._id, method="get")
+=======
+    form(action='/blogs/update/' + blog._id, method="get")
+>>>>>>> update blog added
       input(type="submit", value="Update")
   h2 #{blog.title}
   i #{blog.posted_by}

@@ -45,7 +45,11 @@ router.get('/new', (req, res, next) => {
   }
 
   if(isLoggedIn) {
+<<<<<<< HEAD
     res.render('new-blog', {
+=======
+    res.render('blog-form', {
+>>>>>>> update blog added
       formAction: '/blogs/new'
     });
   }
@@ -63,10 +67,18 @@ router.get('/update/:blogId?', (req, res, next) => {
 
   if(isLoggedIn) {
     Blog.findOne({_id: req.params.blogId}, (err, blog) => {
+<<<<<<< HEAD
       res.render('new-blog', {
         formAction: '/blogs/update/'+blog._id,
         body: blog.body,
         title: blog.title,
+=======
+      res.render('blog-form', {
+        formAction: '/blogs/update/',
+        body: blog.body,
+        title: blog.title,
+        blogId: blog._id,
+>>>>>>> update blog added
       });
     });
   }
@@ -156,7 +168,11 @@ router.post('/update', (req, res, next) => {
     else {
       blog.update(thingsToUpdate, (err) => {
         if(err) res.status(500).json({error: err});
+<<<<<<< HEAD
         res.redirect('/one/'+blog._id);
+=======
+        res.redirect('/blogs/one/'+blog._id);
+>>>>>>> update blog added
       });
     }
   });
