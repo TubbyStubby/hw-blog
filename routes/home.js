@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
     username = req.userData.username;
   }
 
-  Blog.find({}, (err, blogs) => {
+  Blog.find({}, null, { sort: {time_posted: -1} }, (err, blogs) => {
       if(err) {
           console.log(err);
       } else {
