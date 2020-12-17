@@ -32,10 +32,12 @@ app.use(bodyParser.json());
 const homeRoute = require('./routes/home');
 const userRoute = require('./routes/users');
 const blogRoute = require('./routes/blogs');
+const commentRoute = require('./routes/comments');
 
 app.use('/', homeRoute);
 app.use('/users', userRoute);
 app.use('/blogs', blogRoute);
+app.use('/comments', commentRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

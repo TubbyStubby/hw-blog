@@ -1,4 +1,5 @@
 extends header-footer-layout
+include comments
 
 block content
   if canDelete
@@ -8,11 +9,11 @@ block content
     form(action='/blogs/update/' + blog._id, method="get")
       input(type="submit", value="Update")
   h2 #{blog.title}
-  i #{blog.posted_by}
+  i #{'Posted By: ' + blog.posted_by.username}
   h5
     i #{blog.time_posted}
   br
   p= blog.body
   br
   h3 Comments
-  p= blog.comments
+  +comments(blog.comments, userId, blog._id)

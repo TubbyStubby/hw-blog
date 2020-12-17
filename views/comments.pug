@@ -1,0 +1,13 @@
+mixin comments(commentList, userId, blogId)
+  #comment-block
+    #new-comment
+      form(action="/comments", method="post")
+        input(type="hidden", name="userId", value=userId)
+        input(type="hidden", name="blogId", value=blogId)
+        label New Comment: &nbsp;
+        input(type="text", name="body")
+        span &nbsp;
+        input(type="submit", value="Post")
+    ul
+      each comment in commentList
+        li= comment.posted_by.username + ': ' + comment.body
