@@ -45,7 +45,30 @@ router.get('/new', (req, res, next) => {
   }
 
   if(isLoggedIn) {
-    res.render('new-blog');
+    res.render('new-blog', {
+      formAction: '/blogs/new'
+    });
+  }
+  else return res.status(500).json({error: 'Not logged in'});
+});
+
+router.get('/update/:blogId?', (req, res, next) => {
+  let isLoggedIn = false;
+  let username = null;
+
+  if(req.userData) {
+    isLoggedIn = true;
+    username = req.userData.username;
+  }
+
+  if(isLoggedIn) {
+    Blog.findOne({_id: req.params.blogId}, (err, blog) => {
+      res.render('new-blog', {
+        formAction: '/blogs/update/'+blog._id,
+        body: blog.body,
+        title: blog.title,
+      });
+    });
   }
   else return res.status(500).json({error: 'Not logged in'});
 });
@@ -101,6 +124,39 @@ router.post('/delete', (req, res, next) => {
       blog.delete((err) => {
         if(err) res.status(500).json({error: err});
         res.redirect('/');
+      });
+    }
+  });
+});
+
+router.post('/update', (req, res, next) => {
+  let isLoggedIn = false;
+  let username = null;
+  let userid = null;
+
+  if(req.userData) {
+    isLoggedIn = true;
+    username = req.userData.username;
+    userid = req.userData.id;
+  }
+  else return res.status(500).json({error: 'Not logged in.'});
+
+  let blogId = req.body.blogId;
+  let thingsToUpdate = {
+    title: req.body.title,
+    body: req.body.body,
+  }
+
+  console.log(thingsToUpdate);
+
+  Blog.findOne({_id: blogId}, (err, blog) => {
+    if(err) return res.status(500).json({error: err});
+    
+    if(userid != blog.posted_by) return res.status(500).json({error: 'Dont have permision to update this post.'});
+    else {
+      blog.update(thingsToUpdate, (err) => {
+        if(err) res.status(500).json({error: err});
+        res.redirect('/one/'+blog._id);
       });
     }
   });

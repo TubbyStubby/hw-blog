@@ -7,7 +7,10 @@ const commnet_schema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    time_posted: Date,
+    time_posted: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = mongoose.model('Comment', commnet_schema);

@@ -9,7 +9,10 @@ const blog_schema = mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    time_posted: Date,
+    time_posted: {
+        type: Date,
+        default: Date.now,
+    },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
