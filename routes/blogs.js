@@ -18,16 +18,28 @@ router.get('/one/:blogId?', (req, res, next) => {
     userid = req.userData.id;
   }
 
-  Blog.findOne({_id: req.params.blogId}, (err, blog) => {
+  Blog.findOne({_id: req.params.blogId})
+  .populate('posted_by', 'username')
+  .populate({
+    path: 'comments',
+    populate: {
+      path: 'posted_by',
+      select: 'username'
+    }
+  })
+  .exec( (err, blog) => {
     let canDelete = false;
 
     if(isLoggedIn && blog.posted_by == userid) canDelete = true; 
 
     if(err) return res.status(501).json({error: err});
 
+    //console.log(blog.comments[1].posted_by);
+
     res.render('blog-template', {
       blog: blog,
       canDelete: canDelete,
+      userId: userid
     });
   });
 });
