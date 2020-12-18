@@ -25,6 +25,11 @@ router.get('/signup', (req, res, next) => {
   });
 });
 
+router.get('/logout', (req, res, next) => {
+  res.clearCookie('authToken');
+  return res.redirect('/');
+});
+
 // TODO: add error toast
 router.post('/login', (req, res, next) => {
   User.findOne({username: req.body.username}, (err, user) => {
