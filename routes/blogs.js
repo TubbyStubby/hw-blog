@@ -37,6 +37,8 @@ router.get('/one/:blogId?', (req, res, next) => {
     //console.log(blog.comments[1].posted_by);
 
     res.render('blog-template', {
+      loggedIn: isLoggedIn,
+      username: username,
       blog: blog,
       canDelete: canDelete,
       userId: userid
@@ -55,7 +57,9 @@ router.get('/new', (req, res, next) => {
 
   if(isLoggedIn) {
     res.render('blog-form', {
-      formAction: '/blogs/new'
+      formAction: '/blogs/new',
+      loggedIn: isLoggedIn,
+      username: username,
     });
   }
   else return res.status(500).json({error: 'Not logged in'});
@@ -73,6 +77,8 @@ router.get('/update/:blogId?', (req, res, next) => {
   if(isLoggedIn) {
     Blog.findOne({_id: req.params.blogId}, (err, blog) => {
       res.render('blog-form', {
+        loggedIn: isLoggedIn,
+        username: username,
         formAction: '/blogs/update/',
         body: blog.body,
         title: blog.title,

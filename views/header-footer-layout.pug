@@ -13,7 +13,7 @@ html
   
   body
     #header
-      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-3
         .container-fluid
           a.navbar-brand(href="/") HW Blog
           button.navbar-toggler
@@ -29,17 +29,15 @@ html
                     a.nav-link(href='/') Hello, #{username}
                   li.nav-item |
                   li.nav-item
-                    a.nav-link.active(href='/blogs/new') New Post
+                    a.btn.btn-outline-light(href='/blogs/new') New Post
                 else
-                  li.nav-item
-                    a.nav-link.active(href="/users/signup") Signup
-                  li.nav-item
-                    a.nav-link.active(href="/users/login") Login
-    
-    br
+                  li.nav-item.me-2
+                    a.btn.btn-outline-success(href="/users/signup") Signup
+                  li.nav-item.me-2
+                    a.btn.btn-outline-primary(href="/users/login") Login
 
-    block content
-    br
+    .container
+      block content
     br
     hr
     footer

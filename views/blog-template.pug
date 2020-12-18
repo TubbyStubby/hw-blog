@@ -2,18 +2,21 @@ extends header-footer-layout
 include comments
 
 block content
-  if canDelete
-    form(action="/blogs/delete", method="post")
-      input(type="hidden", value=blog._id, name="blogId")
-      input(type="submit", value="Delete")
-    form(action='/blogs/update/' + blog._id, method="get")
-      input(type="submit", value="Update")
-  h2 #{blog.title}
-  i #{'Posted By: ' + blog.posted_by.username}
-  h5
-    i #{blog.time_posted}
-  br
-  p= blog.body
-  br
-  h3 Comments
-  +comments(blog.comments, userId, blog._id)
+  .card
+    .card-header #{blog.time_posted}
+    if canDelete
+      form(action="/blogs/delete", method="post")
+        input(type="hidden", value=blog._id, name="blogId")
+        input(type="submit", value="Delete")
+      form(action='/blogs/update/' + blog._id, method="get")
+        input(type="submit", value="Update")
+    .card-body
+      h3.card-title #{blog.title}
+      h6.card-subtitle.mb-2.text-muted #{'Posted By: ' + blog.posted_by.username}
+    .img
+      img.card-img-top(src="/images/blog-banner.jpg", alt="Blog image goes here")
+    .card-body
+      p= blog.body
+    .card-footer
+      h5 Comments
+      +comments(blog.comments, userId, blog._id)

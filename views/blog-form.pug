@@ -1,12 +1,12 @@
 extends header-footer-layout
 
 block content
-  form(action=formAction, method="post")
+  form.col-8(action=formAction, method="post")
     input(type="hidden", name="blogId", value=blogId)
-    label Title:
-    input(name="title", type="text", value=title)
-    br
-    label Body:
-    textarea(name="body", cols="40", rows="30")= body
-    br
-    input(type="submit", value="Post")
+    .mb-3
+      label.form-label Title:
+      input.form-control(name="title", type="text", value=title)
+    .mb-3
+      label.form-label Body:
+      textarea.form-control(name="body", rows="10")= body
+    button.btn.btn-primary(type="submit", value="Post") Post

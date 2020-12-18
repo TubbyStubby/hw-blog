@@ -1,18 +1,7 @@
 extends header-footer-layout
 
-block content 
-  h1 #{heading}
-  if loggedIn
-    p Hello, #{username}
-    a(href='/blogs/new') New Post
-  else
-    a(href='/users/signup') Signup
-    br
-    a(href='/users/login') login
-  hr
-
+block content
   h2 Posts
-  ul
-    each blog, i in blogs
-      li
-        a(href='/blogs/one/' + blog._id)= blog.title
+  .list-group
+    each blog in blogs
+        a.list-group-item.list-group-item-action(href='/blogs/one/' + blog._id)= blog.title

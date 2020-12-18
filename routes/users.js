@@ -9,6 +9,7 @@ const User = require('../models/User');
 
 router.get('/login', (req, res, next) => {
   res.render('signup-login-form', {
+    loggedIn: false,
     heading: "User Login",
     formAction: '/users/login',
     value: 'Login'
@@ -17,6 +18,7 @@ router.get('/login', (req, res, next) => {
 
 router.get('/signup', (req, res, next) => {
   res.render('signup-login-form', {
+    loggedIn: false,
     heading: 'Signup',
     formAction: '/users/signup',
     value: 'Signup'

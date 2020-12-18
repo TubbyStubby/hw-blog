@@ -1,13 +1,15 @@
 mixin comments(commentList, userId, blogId)
-  #comment-block
-    #new-comment
-      form(action="/comments", method="post")
-        input(type="hidden", name="userId", value=userId)
-        input(type="hidden", name="blogId", value=blogId)
-        label New Comment: &nbsp;
-        input(type="text", name="body")
-        span &nbsp;
-        input(type="submit", value="Post")
-    ul
-      each comment in commentList
-        li= comment.posted_by.username + ': ' + comment.body
+  form.col-6(action="/comments", method="post")
+    input(type="hidden", name="userId", value=userId)
+    input(type="hidden", name="blogId", value=blogId)
+    .mb-3
+      label.form-label New Comment:
+      input.form-control(type="text", name="body")
+    button.btn.btn-primary.mb-3(type="submit", value="Post") Post
+  .list-group
+    each comment in commentList
+      .list-group-item
+        small.text-muted= comment.posted_by.username
+        .d-flex.justify-content-between
+          =comment.body
+          small.badge.bg-primary.rounded-pill #{comment.time_posted}
