@@ -30,7 +30,7 @@ router.get('/one/:blogId?', (req, res, next) => {
   .exec( (err, blog) => {
     let canDelete = false;
 
-    if(isLoggedIn && blog.posted_by == userid) canDelete = true; 
+    if(isLoggedIn && blog.posted_by._id == userid) canDelete = true; 
 
     if(err) return res.status(501).json({error: err});
 
