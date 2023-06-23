@@ -10,7 +10,7 @@ let authenticate = require('./middlewares/auth');
 const port = process.env.PORT || 8080;
 
 mongoose.connect(
-    'mongodb://localhost:27017/hwblog',
+    process.env.DB,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
